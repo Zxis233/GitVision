@@ -9,14 +9,6 @@ The first implementation targets the workflow you described:
 - Export a static artifact that looks presentation-ready
 - Work directly against a local repository such as `E:\MyRV_DIDE` (`https://github.com/zxis233/EsCute-RV.git`)
 
-## Why Node.js
-
-Node.js is a practical fit here because it can:
-
-- call the local `git` executable directly
-- generate SVG/HTML without extra runtime dependencies
-- stay easy to evolve later into Electron, a web UI, or a VS Code extension
-
 ## Usage
 
 Render the default SVG export:
@@ -92,11 +84,8 @@ If `--format html` is passed through `extra_args`, the extension becomes `.html`
 - `test/render.test.js`: end-to-end smoke tests
 - `test/workflow-script.test.js`: workflow helper unit tests
 
-## Current Scope
+## Examples
 
-This version focuses on static export quality first. Good next steps would be:
+Based on [Escute-RV](https://github.com/Zxis233/EsCute-RV)
 
-- pan and zoom in the HTML export
-- commit filtering by branch or author
-- PNG/PDF export via a browser engine
-- more faithful lane routing for very dense merge histories
+![Escute-RV](assets/escute-rv-main.svg)
