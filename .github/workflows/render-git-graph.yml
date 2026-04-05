@@ -1,0 +1,53 @@
+name: Render Git Graph
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository_url:
+        description: Target repository URL to render, or GitHub shorthand like owner/repo
+        required: true
+        type: string
+      main_branch:
+        description: First-parent branch name to keep on lane 0
+        required: true
+        default: main
+        type: string
+      extra_args:
+        description: Extra renderer args, for example --max-commits 100 --since-days 365
+        required: false
+        default: ""
+        type: string
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout GitVision
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Render target repository graph
+        id: render
+        env:
+          WORKFLOW_REPO_URL: ${{ inputs.repository_url }}
+          WORKFLOW_MAIN_BRANCH: ${{ inputs.main_branch }}
+          WORKFLOW_EXTRA_ARGS: ${{ inputs.extra_args }}
+          WORKFLOW_REPO_READ_PAT: ${{ secrets.REPO_READ_PAT }}
+        run: node scripts/render-workflow.js
+
+      - name: Upload generated file
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.render.outputs.artifact_name }}
+          path: ${{ steps.render.outputs.artifact_path }}
+          archive: false
+          if-no-files-found: error

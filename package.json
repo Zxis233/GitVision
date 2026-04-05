@@ -1,0 +1,21 @@
+{
+  "name": "gitvision",
+  "version": "0.1.0",
+  "description": "Visualize Git commit history and export polished SVG/HTML graphs.",
+  "type": "module",
+  "bin": {
+    "gitvision": "./src/cli.js"
+  },
+  "scripts": {
+    "render": "node src/cli.js render",
+    "test": "node --test"
+  },
+  "keywords": [
+    "git",
+    "visualization",
+    "svg",
+    "graph",
+    "history"
+  ],
+  "license": "MIT"
+}
